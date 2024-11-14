@@ -8,12 +8,31 @@ Test project to create a Web Service hosted in Azure, which connects to a DB to 
 
 ### SDLC tools
 
-Repo hosting - github
+#### Team planning - GitHub
 
-#### Considerations
+#### Repo hosting - GitHub
 
 Multiple branch approach. Main would have final release, development would have intermediate versions. Adding rules to protect the branches from unintended actions, requiring Pull Requests and approvals to merge and blocking from removing or directly pushing to main branch(es).
 
 Multiple branch approach sample:
 
 main <-- development <-- feature
+
+#### Setting up infrastructure with Terraform
+
+Automatically create the necessary resources for this project with Terraform + GitHub actions. You'll need to connect the pipeline to your subscription.
+
+**Requirements:**
+
+1. Create a service principal to authenticate against Azure
+
+```bash
+az ad sp create-for-rbac --name "github-terraform" --role Contributor --scopes /subscriptions/<my-subscription-id> 
+```
+
+> This will return the credentials of the sp in JSON format
+
+2. Add the credentials to the repo list of secrets for GitHub Actions.
+
+3. Now you can refer to these on your CI/CD to create resources in Azure.
+
