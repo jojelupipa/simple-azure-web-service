@@ -18,6 +18,12 @@ provider "azurerm" {
   features {}
 }
 
+variable "sql_admin_password" {
+  description = "The administrator password for the Azure SQL Server."
+  type        = string
+  sensitive   = true
+}
+
 resource "azurerm_resource_group" "rg" {
   name     = "simple-azure-web-app-rg-01"
   location = "centralus"
@@ -27,10 +33,8 @@ resource "azurerm_service_plan" "app_service_plan" {
   name                = "simple-azure-web-app-service-plan-01"
   location            = "centralus"
   resource_group_name = azurerm_resource_group.rg.name
-  sku {
-    tier = "Free"
-    size = "F1"
-  }
+  os_type             = "Linux"
+  sku_name            = "F1"
 }
 
 resource "azurerm_windows_web_app" "web_app" {
@@ -49,7 +53,7 @@ resource "azurerm_mssql_server" "sql_server" {
   resource_group_name          = azurerm_resource_group.rg.name
   location                     = "centralus"
   administrator_login          = "sqladmin"
-  administrator_login_password = var.SQL_ADMIN_PASSWORD     # Defined in repo settings secrets
+  administrator_login_password = var.sql_admin_password     # Defined in repo settings secrets
 }
 
 resource "azurerm_mssql_database" "sql_database" {
