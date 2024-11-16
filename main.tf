@@ -44,7 +44,7 @@ resource "azurerm_windows_web_app" "web_app" {
   service_plan_id     = azurerm_service_plan.app_service_plan.id
   
   site_config {
-    python_version = "3.9"
+    always_on         = false
   }
 }
 
@@ -52,8 +52,11 @@ resource "azurerm_mssql_server" "sql_server" {
   name                         = "simple-azure-web-app-my-sql-server-01"
   resource_group_name          = azurerm_resource_group.rg.name
   location                     = "centralus"
+  version                      = "12.0"
   administrator_login          = "sqladmin"
   administrator_login_password = var.sql_admin_password     # Defined in repo settings secrets
+  minimum_tls_version          = "1.2"
+
 }
 
 resource "azurerm_mssql_database" "sql_database" {
