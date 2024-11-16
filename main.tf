@@ -31,7 +31,7 @@ resource "azurerm_resource_group" "rg" {
 
 resource "azurerm_service_plan" "app_service_plan" {
   name                = "simple-azure-web-app-service-plan-01"
-  location            = "centralus"
+  location            = "Australia Central"
   resource_group_name = azurerm_resource_group.rg.name
   os_type             = "Linux"
   sku_name            = "F1"
@@ -39,7 +39,7 @@ resource "azurerm_service_plan" "app_service_plan" {
 
 resource "azurerm_windows_web_app" "web_app" {
   name                = "simple-azure-web-app-app-01"
-  location            = "centralus"
+  location            = "Australia Central"
   resource_group_name = azurerm_resource_group.rg.name
   service_plan_id     = azurerm_service_plan.app_service_plan.id
   
@@ -60,10 +60,11 @@ resource "azurerm_mssql_server" "sql_server" {
 }
 
 resource "azurerm_mssql_database" "sql_database" {
-  name                = "simple-azure-web-app-database-01"
-  server_id         = azurerm_mssql_server.sql_server.id
+  name                        = "simple-azure-web-app-database-01"
+  server_id                   = azurerm_mssql_server.sql_server.id
   auto_pause_delay_in_minutes = 60
-  sku_name            = "GP_S_Gen5_1"
+  sku_name                    = "GP_S_Gen5_1"
+  min_capacity                = 0.5
 }
 
 resource "azurerm_mssql_firewall_rule" "allow_azure" {
