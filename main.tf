@@ -54,14 +54,14 @@ resource "azurerm_mssql_server" "sql_server" {
 
 resource "azurerm_mssql_database" "sql_database" {
   name                = "simple-azure-web-app-database-01"
-  server_id         = azurerm_sql_server.sql_server.id
+  server_id         = azurerm_mssql_server.sql_server.id
   auto_pause_delay_in_minutes = 60
   sku_name            = "GP_S_Gen5_1"
 }
 
 resource "azurerm_mssql_firewall_rule" "allow_azure" {
   name                = "AllowAzure"
-  server_id         = azurerm_sql_server.sql_server.id
+  server_id         = azurerm_mssql_server.sql_server.id
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "0.0.0.0"
 }
