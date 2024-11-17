@@ -50,6 +50,7 @@ resource "azurerm_linux_web_app" "web_app" {
   
   site_config {
     always_on         = false
+    app_command_line  = "python app/main.py"
     
     application_stack {
       python_version = "3.11"
