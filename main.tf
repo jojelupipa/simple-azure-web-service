@@ -48,7 +48,7 @@ resource "azurerm_windows_web_app" "web_app" {
   }
 
   app_settings {
-    "CONNECTION_STRING" = "Driver={ODBC Driver 18 for SQL Server};Server=${azurerm_sql_server.sql_server.name}.database.windows.net;Database=${azurerm_sql_database.sql_database.name};User Id=sqladmin;Password=${var.sql_admin_password};"
+    CONNECTION_STRING = "Driver={ODBC Driver 18 for SQL Server};Server=${azurerm_sql_server.sql_server.name}.database.windows.net;Database=${azurerm_sql_database.sql_database.name};User Id=sqladmin;Password=${var.sql_admin_password};"
   }
   
   site_config {
