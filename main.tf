@@ -42,6 +42,14 @@ resource "azurerm_windows_web_app" "web_app" {
   location            = "Australia Central"
   resource_group_name = azurerm_resource_group.rg.name
   service_plan_id     = azurerm_service_plan.app_service_plan.id
+
+  application_stack {
+    current_stack = "python"
+  }
+
+  app_settings {
+    "CONNECTION_STRING" = "Driver={ODBC Driver 18 for SQL Server};Server=${azurerm_sql_server.sql_server.name}.database.windows.net;Database=${azurerm_sql_database.sql_database.name};User Id=sqladmin;Password=${var.sql_admin_password};"
+  }
   
   site_config {
     always_on         = false
