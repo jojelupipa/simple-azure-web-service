@@ -13,6 +13,9 @@ jobs:
       ARM_TENANT_ID: ${{ fromJson(secrets.AZURE_SP_CREDENTIALS).tenantId }}
       ARM_CLIENT_SECRET: ${{ fromJson(secrets.AZURE_SP_CREDENTIALS).clientSecret }}
 
+      TF_VAR_sql_admin_password: ${{ secrets.TF_VAR_sql_admin_password }}
+
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
