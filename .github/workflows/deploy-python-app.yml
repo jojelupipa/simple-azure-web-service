@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:  # Manual trigger
 
 jobs:
   build-and-deploy:
@@ -33,4 +34,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: simple-azure-web-app-app-01
-          package: .
+          package: ./app
