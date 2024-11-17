@@ -37,14 +37,23 @@ resource "azurerm_service_plan" "app_service_plan" {
   sku_name            = "F1"
 }
 
-resource "azurerm_windows_web_app" "web_app" {
+resource "azurerm_linux_web_app" "web_app" {
   name                = "simple-azure-web-app-app-01"
   location            = "Australia Central"
   resource_group_name = azurerm_resource_group.rg.name
   service_plan_id     = azurerm_service_plan.app_service_plan.id
+
+
+  app_settings = {
+    CONNECTION_STRING = "Driver={ODBC Driver 18 for SQL Server};Server=${azurerm_mssql_server.sql_server.name}.database.windows.net;Database=${azurerm_mssql_database.sql_database.name};User Id=sqladmin;Password=${var.sql_admin_password};"
+  }
   
   site_config {
     always_on         = false
+    
+    application_stack {
+      python_version = "3.11"
+    }
   }
 }
 
