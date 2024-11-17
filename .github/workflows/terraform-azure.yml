@@ -8,10 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ARM_CLIENT_ID: ${{ fromJson(secrets.secrets.AZURE_SP_CREDENTIALS).clientId }}
+      ARM_CLIENT_ID: ${{ fromJson(secrets.AZURE_SP_CREDENTIALS).clientId }}
       ARM_SUBSCRIPTION_ID: ${{ fromJson(secrets.AZURE_SP_CREDENTIALS).subscriptionId }}
       ARM_TENANT_ID: ${{ fromJson(secrets.AZURE_SP_CREDENTIALS).tenantId }}
       ARM_CLIENT_SECRET: ${{ fromJson(secrets.AZURE_SP_CREDENTIALS).clientSecret }}
+      TF_VAR_sql_admin_password: ${{ secrets.TF_VAR_SQL_ADMIN_PASSWORD }}
 
     steps:
     - name: Checkout code
@@ -20,7 +21,7 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: 1.5.7
+        terraform_version: 1.9.8
 
     - name: Terraform Init
       run: terraform init
