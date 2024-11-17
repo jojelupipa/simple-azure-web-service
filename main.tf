@@ -34,7 +34,7 @@ resource "azurerm_service_plan" "app_service_plan" {
   location            = "Australia Central"
   resource_group_name = azurerm_resource_group.rg.name
   os_type             = "Linux"
-  sku_name            = "F1"
+  sku_name            = "B1"
 }
 
 resource "azurerm_linux_web_app" "web_app" {
@@ -50,7 +50,7 @@ resource "azurerm_linux_web_app" "web_app" {
   
   site_config {
     always_on         = false
-    app_command_line  = "python app/app.py"
+    app_command_line  = "python app.py"
     
     application_stack {
       python_version = "3.11"
