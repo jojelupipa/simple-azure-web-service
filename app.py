@@ -7,6 +7,9 @@ app = Flask(__name__)
 # Connection string from environment variables
 connection_string = os.getenv("CONNECTION_STRING")
 
+if not connection_string:
+    raise ValueError("CONNECTION_STRING environment variable not set")
+
 
 @app.route('/')
 def index():
@@ -22,4 +25,4 @@ def index():
         return str(e)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=8000)
