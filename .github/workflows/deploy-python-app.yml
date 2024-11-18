@@ -22,7 +22,6 @@ jobs:
           python-version: '3.11'
 
       - name: Install python dependencies
-        working-directory: ./app
         run: |
           sudo apt install python3.11-venv
           python -m venv --copies antenv
@@ -39,6 +38,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: simple-azure-web-app-app-01
-          package: ./app
+          package: .
           startup-command: python app.py
 
